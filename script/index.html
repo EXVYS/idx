@@ -1,64 +1,18 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Script Loader</title>
-  <meta name="robots" content="noindex">
-  <style>
-    body{
-      font-family:system-ui,Arial,Helvetica;
-      background:#0b0b0b;
-      color:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      height:100vh;
-      margin:0
-    }
-    .card{
-      background:#111;
-      padding:28px;
-      border-radius:12px;
-      max-width:720px;
-      text-align:center;
-      box-shadow:0 8px 30px rgba(0,0,0,.6)
-    }
-    h1{margin:0 0 8px;color:#ff6b6b}
-    p{margin:0;color:#cfcfcf}
-    #embedded-lua{display:none;white-space:pre-wrap;font-family:monospace}
-  </style>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirecting...</title>
   <script>
-    // Only redirect browser users, not programmatic requests
-    (function(){
-      try {
-        // Check if this is a real browser environment
-        const isBrowser = typeof window !== 'undefined' && 
-                         typeof document !== 'undefined' && 
-                         typeof navigator !== 'undefined' &&
-                         !navigator.userAgent.includes('Roblox');
-        
-        if (isBrowser) {
-          window.location.replace("https://idx.lol");
-        }
-      } catch(e) {
-        // Silent fail for non-browser environments
-      }
-    })();
+    // Immediately redirect browsers to homepage
+    window.location.href = "https://idx.lol";
   </script>
+  <noscript>
+    <meta http-equiv="refresh" content="0; url=https://idx.lol">
+  </noscript>
 </head>
 <body>
-  <div class="card" aria-hidden="true">
-    <h1>Script Loader</h1>
-    <p>If you're seeing this in a browser, you should be redirected shortly.</p>
-    <p>For automated access, the Lua script is embedded below.</p>
-  </div>
-
-  <!-- Embedded Lua for programmatic fetch -->
-  <pre id="embedded-lua" style="display:none">
--- Load the main script
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EXVYS/LuaLibrary/refs/heads/main/script.lua"))()
-  </pre>
+  <p>If you are not redirected automatically, <a href="https://idx.lol">click here</a>.</p>
 </body>
 </html>

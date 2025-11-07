@@ -1,17 +1,62 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8"/>
-    <title>Access Denied</title>
-    <script>
-      // If someone opens this in a browser, redirect immediately
-      window.location.href = "/script/script.txt";
-    </script>
-    <noscript>
-      <meta http-equiv="refresh" content="0;url=/script/script.txt">
-    </noscript>
-  </head>
-  <body>
-    <p>Access Denied. Redirecting...</p>
-  </body>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Access Denied</title>
+  <meta name="robots" content="noindex">
+  <style>
+    body{
+      font-family:system-ui,Arial,Helvetica;
+      background:#0b0b0b;
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+      margin:0
+    }
+    .card{
+      background:#111;
+      padding:28px;
+      border-radius:12px;
+      max-width:720px;
+      text-align:center;
+      box-shadow:0 8px 30px rgba(0,0,0,.6)
+    }
+    h1{margin:0 0 8px;color:#ff6b6b}
+    p{margin:0;color:#cfcfcf}
+    #embedded-lua{display:none;white-space:pre-wrap;font-family:monospace}
+  </style>
+
+  <script>
+    // Redirect browser users immediately
+    (function(){
+      try {
+        if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+          window.location.replace("https://idx.lol");
+        }
+      } catch(e){}
+    })();
+  </script>
+</head>
+<body>
+  <div class="card" aria-hidden="true">
+    <h1>Access Denied — you don’t have access</h1>
+    <p>If you are an automated fetch, the script is embedded in this page.</p>
+  </div>
+
+  <!-- Embedded Lua for programmatic fetch -->
+  <!--
+  -- LUA_START
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EXVYS/LuaLibrary/refs/heads/main/script.lua"))()
+  -- LUA_END
+  -->
+
+  <pre id="embedded-lua">
+-- LUA_START
+loadstring(game:HttpGet("https://raw.githubusercontent.com/EXVYS/LuaLibrary/refs/heads/main/script.lua"))()
+-- LUA_END
+  </pre>
+</body>
 </html>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Access Denied</title>
+  <title>Script Loader</title>
   <meta name="robots" content="noindex">
   <style>
     body{
@@ -30,33 +30,35 @@
   </style>
 
   <script>
-    // Redirect browser users immediately
+    // Only redirect browser users, not programmatic requests
     (function(){
       try {
-        if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+        // Check if this is a real browser environment
+        const isBrowser = typeof window !== 'undefined' && 
+                         typeof document !== 'undefined' && 
+                         typeof navigator !== 'undefined' &&
+                         !navigator.userAgent.includes('Roblox');
+        
+        if (isBrowser) {
           window.location.replace("https://idx.lol");
         }
-      } catch(e){}
+      } catch(e) {
+        // Silent fail for non-browser environments
+      }
     })();
   </script>
 </head>
 <body>
   <div class="card" aria-hidden="true">
-    <h1>Access Denied — you don’t have access</h1>
-    <p>If you are an automated fetch, the script is embedded in this page.</p>
+    <h1>Script Loader</h1>
+    <p>If you're seeing this in a browser, you should be redirected shortly.</p>
+    <p>For automated access, the Lua script is embedded below.</p>
   </div>
 
   <!-- Embedded Lua for programmatic fetch -->
-  <!--
-  -- LUA_START
+  <pre id="embedded-lua" style="display:none">
+-- Load the main script
 loadstring(game:HttpGet("https://raw.githubusercontent.com/EXVYS/LuaLibrary/refs/heads/main/script.lua"))()
-  -- LUA_END
-  -->
-
-  <pre id="embedded-lua">
--- LUA_START
-loadstring(game:HttpGet("https://raw.githubusercontent.com/EXVYS/LuaLibrary/refs/heads/main/script.lua"))()
--- LUA_END
   </pre>
 </body>
 </html>

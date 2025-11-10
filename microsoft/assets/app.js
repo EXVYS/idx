@@ -106,14 +106,14 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
 
-    // ============================================
-    // OVERRIDE: disable all buttons and show alert
-    // ============================================
-    document.querySelectorAll('button').forEach(button => {
-        button.addEventListener('click', event => {
-            event.preventDefault();
-            event.stopImmediatePropagation(); // stop all other click handlers
+    // ======================================================
+    // ADDITION: Override all buttons to show offline message
+    // ======================================================
+    document.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            e.stopImmediatePropagation();
             alert("Sorry the website host is down, this is not our fault! Please try again later.");
-        }, true); // capture phase to override earlier handlers
+        }, true);
     });
 });

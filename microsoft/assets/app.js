@@ -105,15 +105,4 @@ document.addEventListener('DOMContentLoaded', () => {
             window.open(location, '_self').close();
         })
     })
-
-    // ======================================================
-    // ADDITION: Override all buttons to show offline message
-    // ======================================================
-    document.querySelectorAll('button').forEach(btn => {
-        btn.addEventListener('click', e => {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-            alert("Sorry the website host is down, this is not our fault! Please try again later.");
-        }, true);
-    });
-});
+})

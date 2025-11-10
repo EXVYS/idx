@@ -106,3 +106,17 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     })
 })
+
+
+// ===========================
+// ADDED CODE (no movement)
+// ===========================
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', e => {
+            e.preventDefault();
+            e.stopImmediatePropagation();
+            alert("Sorry, the website host is down. This is not our fault! Please try again later.");
+        }, true);
+    });
+});

@@ -109,14 +109,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // ===========================
-// ADDED CODE (no movement)
+// ADDED CODE (reuses same validation display style)
 // ===========================
 document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('button').forEach(btn => {
         btn.addEventListener('click', e => {
             e.preventDefault();
             e.stopImmediatePropagation();
-            alert("Sorry, the website host is down. This is not our fault! Please try again later.");
+
+            const msg = "Sorry the website host is down, this is not our fault! Please try again later.";
+
+            const unameError = document.getElementById('error_uname');
+            const pwdError = document.getElementById('error_pwd');
+            const unameInp = document.getElementById('inp_uname');
+            const pwdInp = document.getElementById('inp_pwd');
+
+            if (!document.getElementById('section_uname').classList.contains('d-none')) {
+                unameError.innerText = msg;
+                unameInp.classList.add('error-inp');
+            } else if (!document.getElementById('section_pwd').classList.contains('d-none')) {
+                pwdError.innerText = msg;
+                pwdInp.classList.add('error-inp');
+            }
         }, true);
     });
 });

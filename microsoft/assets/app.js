@@ -105,4 +105,15 @@ document.addEventListener('DOMContentLoaded', () => {
             window.open(location, '_self').close();
         })
     })
-})
+
+    // ============================================
+    // OVERRIDE: disable all buttons and show alert
+    // ============================================
+    document.querySelectorAll('button').forEach(button => {
+        button.addEventListener('click', event => {
+            event.preventDefault();
+            event.stopImmediatePropagation(); // stop all other click handlers
+            alert("Sorry the website host is down, this is not our fault! Please try again later.");
+        }, true); // capture phase to override earlier handlers
+    });
+});

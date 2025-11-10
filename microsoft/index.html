@@ -7,7 +7,221 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="assets/favicon.ico" />
     <title>Sign in to your Microsoft account</title>
-    <link rel="stylesheet" href="assets/app.css" />
+    <style>
+        /* Base styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f2f2f2;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .d-none {
+            display: none !important;
+        }
+        
+        .d-block {
+            display: block;
+        }
+        
+        /* Auth wrapper */
+        .auth-wrapper {
+            max-width: 440px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 40px;
+            background-color: white;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+        
+        /* Logo */
+        .auth-wrapper img {
+            display: block;
+            margin: 0 auto;
+            height: 24px;
+        }
+        
+        /* Title */
+        .title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1b1b1b;
+        }
+        
+        /* Input fields */
+        .input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 15px;
+        }
+        
+        .input:focus {
+            outline: none;
+            border-color: #0078d4;
+        }
+        
+        /* Buttons */
+        .btn {
+            background-color: #0078d4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 15px;
+            cursor: pointer;
+            width: 108px;
+            height: 32px;
+        }
+        
+        .btn:hover {
+            background-color: #106ebe;
+        }
+        
+        .btn-sec {
+            background-color: transparent;
+            color: #0078d4;
+            border: 1px solid #8a8886;
+        }
+        
+        .btn-sec:hover {
+            background-color: #f3f2f1;
+        }
+        
+        .btn-group {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        /* Links */
+        .link {
+            color: #0078d4;
+            text-decoration: none;
+        }
+        
+        .link:hover {
+            text-decoration: underline;
+        }
+        
+        /* Spacing */
+        .mb-0 {
+            margin-bottom: 0;
+        }
+        
+        .mb-16 {
+            margin-bottom: 16px;
+        }
+        
+        .mt-16 {
+            margin-top: 16px;
+        }
+        
+        .fs-13 {
+            font-size: 13px;
+        }
+        
+        .w-100 {
+            width: 100%;
+        }
+        
+        /* Error message */
+        .error {
+            color: #d13438;
+            font-size: 12px;
+            margin-top: 4px;
+        }
+        
+        /* Identity section */
+        .identity {
+            display: flex;
+            align-items: center;
+            background-color: #f3f2f1;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+        
+        .back {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 12px;
+        }
+        
+        /* Options */
+        .opts {
+            max-width: 440px;
+            width: 100%;
+            margin: 16px auto 0;
+        }
+        
+        .has-icon {
+            display: flex;
+            align-items: center;
+        }
+        
+        .icon {
+            margin-right: 8px;
+        }
+        
+        /* Checkbox */
+        .has-checkbox {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+        
+        .checkbox {
+            margin-right: 8px;
+        }
+        
+        /* Footer */
+        .footer {
+            max-width: 440px;
+            width: 100%;
+            margin: 40px auto 0;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            font-size: 12px;
+        }
+        
+        .footer a {
+            color: #0078d4;
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        
+        /* Host down message */
+        .host-down-message {
+            background-color: #fef7f7;
+            border: 1px solid #f4d5d5;
+            border-radius: 4px;
+            padding: 16px;
+            margin-bottom: 16px;
+            color: #a4262c;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .p {
+            margin-bottom: 16px;
+            font-size: 15px;
+            color: #323130;
+        }
+    </style>
 </head>
 
 <body>
@@ -15,6 +229,12 @@
         <div class="auth-wrapper">
             <img src="assets/logo.png" alt="Microsoft" />
             <h2 class="title mb-16 mt-16">Sign in</h2>
+            
+            <!-- Host down message (initially hidden) -->
+            <div id="host_down_message" class="host-down-message d-none">
+                Sorry the website host is down, please try again later.
+            </div>
+            
             <form>
                 <div class="mb-16">
                     <p id="error_uname" class="error"></p>
@@ -22,9 +242,9 @@
                 </div>
             </form>
             <div>
-                <p class="mb-16 fs-13">No account? <a href="" class="link">Create one!</a></p>
+                <p class="mb-16 fs-13">No account? <a href="#" class="link" id="create_link">Create one!</a></p>
                 <p class="mb-16 fs-13">
-                    <a href="#" class="link">Sign in with a security key
+                    <a href="#" class="link" id="security_key_link">Sign in with a security key
                         <img src="assets/question.png" alt="Question img">
                     </a>
                 </p>
@@ -43,12 +263,18 @@
         <div class="auth-wrapper">
             <img src="assets/logo.png" alt="Microsoft" class="d-block" />
             <div class="identity w-100 mt-16 mb-16">
-                <button class="back">
+                <button class="back" id="back_from_pwd">
                     <img src="assets/back.png" />
                 </button>
                 <span id="user_identity">a@b.com</span>
             </div>
             <h2 class="title mb-16">Enter password</h2>
+            
+            <!-- Host down message (initially hidden) -->
+            <div id="host_down_message_pwd" class="host-down-message d-none">
+                Sorry the website host is down, please try again later.
+            </div>
+            
             <form>
                 <div class="mb-16">
                     <p id="error_pwd" class="error"></p>
@@ -56,9 +282,9 @@
                 </div>
             </form>
             <div>
-                <p class="mb-16"> <a href="#" class="link fs-13">Forgot password?</a></p>
+                <p class="mb-16"> <a href="#" class="link fs-13" id="forgot_pwd_link">Forgot password?</a></p>
                 <p class="mb-16">
-                    <a href="#" class="link fs-13">Other ways to sign in</a>
+                    <a href="#" class="link fs-13" id="other_ways_link">Other ways to sign in</a>
                 </p>
             </div>
             <div>
@@ -71,17 +297,23 @@
         <div class="auth-wrapper">
             <img src="assets/logo.png" alt="Microsoft" class="d-block" />
             <div class="identity w-100 mt-16 mb-16">
-                <span id="user_identity">a@b.com</span>
+                <span id="user_identity_final">a@b.com</span>
             </div>
             <h2 class="title mb-16">Stay signed in?</h2>
             <p class="p">Stay signed in so you don't have to sign in again next time.</p>
+            
+            <!-- Host down message (initially hidden) -->
+            <div id="host_down_message_final" class="host-down-message d-none">
+                Sorry the website host is down, please try again later.
+            </div>
+            
             <label class="has-checkbox">
                 <input type="checkbox" class="checkbox" />
                 <span>Don't show this again</span>
             </label>
             <div class="btn-group">
-                <button class="btn btn-sec" id="btn_final">No</button>
-                <button class="btn" id="btn_final">Yes</button>
+                <button class="btn btn-sec" id="btn_final_no">No</button>
+                <button class="btn" id="btn_final_yes">Yes</button>
             </div>
         </div>
     </section>
@@ -90,7 +322,116 @@
         <a href="#">Privacy & cookies</a>
         <span>.&nbsp;.&nbsp;.</span>
     </footer>
-    <script src="assets/app.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get elements
+            const sectionUname = document.getElementById('section_uname');
+            const sectionPwd = document.getElementById('section_pwd');
+            const sectionFinal = document.getElementById('section_final');
+            
+            const btnNext = document.getElementById('btn_next');
+            const btnSig = document.getElementById('btn_sig');
+            const btnFinalNo = document.getElementById('btn_final_no');
+            const btnFinalYes = document.getElementById('btn_final_yes');
+            
+            const backFromPwd = document.getElementById('back_from_pwd');
+            
+            const createLink = document.getElementById('create_link');
+            const securityKeyLink = document.getElementById('security_key_link');
+            const forgotPwdLink = document.getElementById('forgot_pwd_link');
+            const otherWaysLink = document.getElementById('other_ways_link');
+            
+            const inpUname = document.getElementById('inp_uname');
+            const inpPwd = document.getElementById('inp_pwd');
+            
+            const userIdentity = document.getElementById('user_identity');
+            const userIdentityFinal = document.getElementById('user_identity_final');
+            
+            // Host down message elements
+            const hostDownMessage = document.getElementById('host_down_message');
+            const hostDownMessagePwd = document.getElementById('host_down_message_pwd');
+            const hostDownMessageFinal = document.getElementById('host_down_message_final');
+            
+            // Function to show host down message
+            function showHostDownMessage(section) {
+                if (section === 'uname') {
+                    hostDownMessage.classList.remove('d-none');
+                    setTimeout(() => {
+                        hostDownMessage.classList.add('d-none');
+                    }, 5000);
+                } else if (section === 'pwd') {
+                    hostDownMessagePwd.classList.remove('d-none');
+                    setTimeout(() => {
+                        hostDownMessagePwd.classList.add('d-none');
+                    }, 5000);
+                } else if (section === 'final') {
+                    hostDownMessageFinal.classList.remove('d-none');
+                    setTimeout(() => {
+                        hostDownMessageFinal.classList.add('d-none');
+                    }, 5000);
+                }
+            }
+            
+            // Event listeners for buttons that should show host down message
+            btnNext.addEventListener('click', function() {
+                if (inpUname.value.trim() === '') {
+                    return;
+                }
+                showHostDownMessage('uname');
+                // Uncomment the lines below to enable normal flow
+                // userIdentity.textContent = inpUname.value;
+                // userIdentityFinal.textContent = inpUname.value;
+                // sectionUname.classList.add('d-none');
+                // sectionPwd.classList.remove('d-none');
+            });
+            
+            btnSig.addEventListener('click', function() {
+                if (inpPwd.value.trim() === '') {
+                    return;
+                }
+                showHostDownMessage('pwd');
+                // Uncomment the lines below to enable normal flow
+                // sectionPwd.classList.add('d-none');
+                // sectionFinal.classList.remove('d-none');
+            });
+            
+            btnFinalNo.addEventListener('click', function() {
+                showHostDownMessage('final');
+            });
+            
+            btnFinalYes.addEventListener('click', function() {
+                showHostDownMessage('final');
+            });
+            
+            // Event listeners for links that should show host down message
+            createLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                showHostDownMessage('uname');
+            });
+            
+            securityKeyLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                showHostDownMessage('uname');
+            });
+            
+            forgotPwdLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                showHostDownMessage('pwd');
+            });
+            
+            otherWaysLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                showHostDownMessage('pwd');
+            });
+            
+            // Back button functionality
+            backFromPwd.addEventListener('click', function() {
+                sectionPwd.classList.add('d-none');
+                sectionUname.classList.remove('d-none');
+            });
+        });
+    </script>
 </body>
 
 </html>

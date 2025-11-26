@@ -347,10 +347,8 @@
     </div>
     
     <!-- Audio element -->
-    <audio id="backgroundMusic" loop>
-        <source src="/music.mp3" type="audio/mpeg">
-        <source src="/music.wav" type="audio/wav">
-        Your browser does not support the audio element.
+    <audio id="backgroundMusic" loop autoplay>
+        <source src="https://idx.lol/paranoia/music.mp3" type="audio/mpeg">
     </audio>
     
     <script>
@@ -359,12 +357,28 @@
         const musicToggle = document.getElementById('musicToggle');
         let isMusicPlaying = true;
         
-        // Auto-play music when page loads
+        // Auto-play music when page loads with user interaction fallback
+        document.addEventListener('click', function() {
+            if (backgroundMusic.paused) {
+                backgroundMusic.play().then(() => {
+                    console.log('Music started playing');
+                    isMusicPlaying = true;
+                    musicToggle.textContent = '🔊 Music: On';
+                }).catch(error => {
+                    console.log('Play failed:', error);
+                });
+            }
+        }, { once: true });
+        
+        // Also try to play on page load
         window.addEventListener('load', function() {
-            backgroundMusic.play().catch(function(error) {
-                console.log('Auto-play prevented:', error);
-                // Update button to show music is off due to auto-play restrictions
-                musicToggle.textContent = '🔇 Music: Click to Play';
+            backgroundMusic.play().then(() => {
+                console.log('Music auto-played on load');
+                isMusicPlaying = true;
+                musicToggle.textContent = '🔊 Music: On';
+            }).catch(error => {
+                console.log('Auto-play blocked, waiting for user interaction');
+                musicToggle.textContent = '🔇 Click to Play';
                 isMusicPlaying = false;
             });
         });
@@ -375,8 +389,12 @@
                 backgroundMusic.pause();
                 musicToggle.textContent = '🔇 Music: Off';
             } else {
-                backgroundMusic.play();
-                musicToggle.textContent = '🔊 Music: On';
+                backgroundMusic.play().then(() => {
+                    musicToggle.textContent = '🔊 Music: On';
+                }).catch(error => {
+                    console.log('Play failed:', error);
+                    musicToggle.textContent = '🔇 Click Failed';
+                });
             }
             isMusicPlaying = !isMusicPlaying;
         });

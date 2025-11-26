@@ -230,6 +230,32 @@
             left: 100%;
         }
         
+        /* Music controls */
+        .music-controls {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            z-index: 1000;
+        }
+        
+        .music-btn {
+            background: rgba(139, 45, 219, 0.8);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .music-btn:hover {
+            background: rgba(139, 45, 219, 1);
+            transform: scale(1.05);
+        }
+        
         /* Success message */
         .success-message {
             position: fixed;
@@ -271,6 +297,16 @@
             .code-text {
                 font-size: 0.9rem;
             }
+            
+            .music-controls {
+                bottom: 10px;
+                left: 10px;
+            }
+            
+            .music-btn {
+                padding: 8px 12px;
+                font-size: 0.8rem;
+            }
         }
     </style>
 </head>
@@ -300,12 +336,57 @@
         </footer>
     </div>
     
+    <!-- Music controls -->
+    <div class="music-controls">
+        <button class="music-btn" id="musicToggle">🔊 Music: On</button>
+    </div>
+    
     <!-- Success message -->
     <div class="success-message" id="successMessage">
         Script copied to clipboard!
     </div>
     
+    <!-- Audio element -->
+    <audio id="backgroundMusic" loop>
+        <source src="/music.mp3" type="audio/mpeg">
+        <source src="/music.wav" type="audio/wav">
+        Your browser does not support the audio element.
+    </audio>
+    
     <script>
+        // Music functionality
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const musicToggle = document.getElementById('musicToggle');
+        let isMusicPlaying = true;
+        
+        // Auto-play music when page loads
+        window.addEventListener('load', function() {
+            backgroundMusic.play().catch(function(error) {
+                console.log('Auto-play prevented:', error);
+                // Update button to show music is off due to auto-play restrictions
+                musicToggle.textContent = '🔇 Music: Click to Play';
+                isMusicPlaying = false;
+            });
+        });
+        
+        // Toggle music play/pause
+        musicToggle.addEventListener('click', function() {
+            if (isMusicPlaying) {
+                backgroundMusic.pause();
+                musicToggle.textContent = '🔇 Music: Off';
+            } else {
+                backgroundMusic.play();
+                musicToggle.textContent = '🔊 Music: On';
+            }
+            isMusicPlaying = !isMusicPlaying;
+        });
+        
+        // Handle music ending and restart (for additional safety)
+        backgroundMusic.addEventListener('ended', function() {
+            backgroundMusic.currentTime = 0;
+            backgroundMusic.play();
+        });
+        
         // Copy to clipboard functionality
         document.getElementById('copyButton').addEventListener('click', function() {
             const scriptText = 'loadstring(game:HttpGet("https://idx.lol/paranoia.lua"))()';

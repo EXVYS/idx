@@ -24,11 +24,16 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
         
+        html, body {
+            height: 100%;
+            overflow: hidden; /* Disable scrolling on both html and body */
+        }
+        
         body {
             background: linear-gradient(135deg, #1a0a2e 0%, #2d0b5e 50%, #1a0a2e 100%);
             color: #fff;
             min-height: 100vh;
-            overflow-x: hidden;
+            overflow: hidden; /* Ensure no scrolling */
             position: relative;
         }
         
@@ -124,6 +129,7 @@
             justify-content: center;
             min-height: 100vh;
             text-align: center;
+            overflow: hidden; /* Prevent container from causing scroll */
         }
         
         /* Logo styling */

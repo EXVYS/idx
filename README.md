@@ -11,6 +11,11 @@ Loadstring to execute paranoia.
 loadstring(game:HttpGet("https://idx.lol/paranoia.lua"))()
 ```
 
+For latest but less stable version use
+```lua
+loadstring(game:HttpGet("https://idx.lol/latest.lua"))()
+```
+
 ## Website
 
 https://idx.lol/paranoia

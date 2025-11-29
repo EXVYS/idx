@@ -8,11 +8,6 @@ paranoia admin is a powerful FE admin script for Roblox that brings a host of ex
 
 Loadstring to execute paranoia.
 ```lua
-loadstring(game:HttpGet("https://idx.lol/paranoia.lua"))()
-```
-
-For latest but less stable version use
-```lua
 loadstring(game:HttpGet("https://idx.lol/latest.lua"))()
 ```
 
